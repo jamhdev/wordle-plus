@@ -1,0 +1,502 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*----------------------------------------*/
+
+.nav-container {
+  position: relative;
+  height: 66px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #d3d6da;
+  margin-bottom: 85px;
+}
+.title {
+  flex-grow: 3;
+}
+.solution-nav {
+  position: absolute;
+  right: 30px;
+  top: 70px;
+}
+
+.cheat-btn {
+  position: absolute;
+  border: none;
+  background-color: #d3d6da;
+  right: 30px;
+  padding: 10px;
+  border-radius: 25px;
+}
+@media screen and (max-width: 350px) {
+  .cheat-btn {
+    position: absolute;
+    border: none;
+    background-color: #d3d6da;
+    top: 92px;
+    left: 10px;
+    padding: 10px;
+    border-radius: 25px;
+  }
+}
+
+.cheat {
+  animation: tracking-in-expand 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+.no-cheat {
+  animation: tracking-out-contract 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+    both;
+}
+.cheat-btn:hover {
+  background-color: #ff0000;
+}
+
+.tracking-in-expand {
+  -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
+    both;
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
+.tracking-out-contract {
+  -webkit-animation: tracking-out-contract 0.7s
+    cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: tracking-out-contract 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+    both;
+}
+
+/*----------------------------------------*/
+
+body {
+  margin: auto;
+  text-align: center;
+}
+
+.board-container {
+  margin: auto;
+  max-width: 350px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+  min-height: 66px;
+}
+
+.row > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #d3d6da;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2.5em;
+  color: white;
+}
+
+/*.row {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.row > div {
+  display: block;
+  width: 62px;
+  height: 62px;
+  border: 2px solid #d3d6da;
+  margin: 3px;
+  text-align: center;
+  line-height: 60px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2.5em;
+  color: white;
+}*/
+
+.row > div.filled {
+  color: black;
+}
+
+.row > div.grey {
+  background-color: rgb(120, 124, 126);
+  border-color: rgb(120, 124, 126);
+  -webkit-animation: rotate-in-diag-2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: rotate-in-diag-2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.row > div.yellow {
+  background-color: rgb(201, 180, 88);
+  border-color: rgb(201, 180, 88);
+  -webkit-animation: rotate-in-diag-2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: rotate-in-diag-2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.row > div.green {
+  background-color: rgb(106, 170, 100);
+  border-color: rgb(106, 170, 100);
+  -webkit-animation: rotate-in-diag-2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: rotate-in-diag-2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.row > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.row > div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.row > div:nth-child(4) {
+  animation-delay: 0.6s;
+}
+.row > div:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+.row.current > div.filled {
+  animation: wiggle 0.1s forwards ease-out;
+}
+/*-webkit-animation: pulsate-fwd 0.1s linear;
+  animation: pulsate-fwd 0.1s linear; */
+
+.keypad-row-1,
+.keypad-row-2,
+.keypad-row-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+  gap: 5px;
+  margin-bottom: 5px;
+  min-height: 66px;
+  max-width: 500px;
+  min-width: 160px;
+  margin: 20px auto;
+}
+.keypad-row-1 {
+  max-width: 500px;
+}
+.keypad-row-2 {
+  max-width: 455px;
+}
+.keypad-row-3 {
+  max-width: 500px;
+}
+
+.keypad-row-1 > button,
+.keypad-row-2 > button,
+.keypad-row-3 > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d3d6da;
+  border-radius: 4px;
+  font-weight: 900;
+}
+
+.keypad-enter-button,
+.keypad-delete-button {
+  grid-column: span 2; /* Makes the button span two columns */
+}
+
+.keypad-row-1 > button.green,
+.keypad-row-2 > button.green,
+.keypad-row-3 > button.green {
+  border: none;
+  background-color: rgb(106, 170, 100);
+  color: #fff;
+  transition: all 0.3s ease-in;
+  animation: flip 0.5s ease-in forwards;
+}
+
+.keypad-row-1 > button.yellow,
+.keypad-row-2 > button.yellow,
+.keypad-row-3 > button.yellow {
+  border: none;
+  background-color: rgb(201, 180, 88);
+  color: #fff;
+  transition: all 0.3s ease-in;
+  animation: flip 0.5s ease-in forwards;
+}
+
+.keypad-row-1 > button.grey,
+.keypad-row-2 > button.grey,
+.keypad-row-3 > button.grey {
+  border: none;
+  background-color: rgb(120, 124, 126);
+  color: #fff;
+  transition: all 0.3s ease-in;
+  animation: flip 0.5s ease-in forwards;
+}
+
+.keypad-row-1 > button,
+.keypad-row-2 > button,
+.keypad-row-3 > button {
+  cursor: pointer;
+  border: none;
+}
+.keypad-row-1 button:hover,
+.keypad-row-2 button:hover,
+.keypad-row-3 button:hover {
+  transition: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
+}
+
+.alert-modal {
+  z-index: 9999;
+  position: absolute;
+  background-color: black;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  top: 75px;
+  left: 30%;
+  right: 30%;
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.7);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal div {
+  max-width: 480px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  margin: 10% auto;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal .solution {
+  color: red;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: roll-in-blurred-left 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.play-again-button {
+  border: none;
+  background: rgb(120, 124, 126);
+  color: white;
+  border-radius: 25px;
+  padding: 10px;
+  animation: roll-in-blurred-left 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: 0.5s;
+}
+
+.play-again-button:hover {
+  background: rgb(106, 170, 100);
+  color: white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+/* animations */
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+  }
+  45% {
+    transform: rotateX(90deg);
+  }
+  55% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: rotateZ(-15deg) scale(1);
+  }
+  20% {
+    transform: rotateZ(10deg) scale(1.1);
+  }
+  25% {
+    transform: rotateZ(-10deg) scale(1.1);
+  }
+  30% {
+    transform: rotateZ(6deg) scale(1.1);
+  }
+  35% {
+    transform: rotateZ(-4deg) scale(1.1);
+  }
+  40%,
+  100% {
+    transform: rotateZ(0deg) scale(1);
+    border-color: #333;
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2023-9-5 18:56:47
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+@-webkit-keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2023-9-5 18:52:18
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+@-webkit-keyframes rotate-in-diag-2 {
+  0% {
+    -webkit-transform: rotate3d(-1, 1, 0, -360deg);
+    transform: rotate3d(-1, 1, 0, -360deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotate3d(-1, 1, 0, 0deg);
+    transform: rotate3d(-1, 1, 0, 0deg);
+    opacity: 1;
+  }
+}
+@keyframes rotate-in-diag-2 {
+  0% {
+    -webkit-transform: rotate3d(-1, 1, 0, -360deg);
+    transform: rotate3d(-1, 1, 0, -360deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotate3d(-1, 1, 0, 0deg);
+    transform: rotate3d(-1, 1, 0, 0deg);
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2023-9-8 15:45:48
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+@keyframes roll-in-blurred-left {
+  0% {
+    transform: translateX(-1000px) rotate(-720deg);
+    filter: blur(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2023-9-8 18:39:58
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+@-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2023-9-8 18:40:18
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+@-webkit-keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
+@keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
