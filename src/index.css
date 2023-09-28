@@ -270,6 +270,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
+  overflow: scroll;
 }
 
 .modal div {
@@ -306,6 +307,31 @@ body {
   border-radius: 25px;
   padding: 10px;
 }
+
+/*        wordinfo styles        */
+
+.modal .word-info-main-container {
+  text-align: center;
+  border-radius: 25px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 1rem auto 0 auto;
+}
+
+.word-info-main-container .word-info-section {
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid aliceblue;
+}
+
+.word-info-main-container .word-info-section:nth-child(2n + 1) {
+  border: 3px solid white;
+  background-color: aliceblue;
+}
+
+/*        wordinfo styles        */
 
 /* animations */
 @keyframes flip {
