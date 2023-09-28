@@ -77,7 +77,7 @@ export default function WordInfo({ word }) {
             )}
         </div>
       ) : (
-        <div>LOADING...</div>
+        <div>No word info found</div>
       )}
     </>
   );
